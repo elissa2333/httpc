@@ -31,7 +31,7 @@ func (r Response) Bytes() ([]byte, error) {
 }
 
 // Text 将响应以解析为字符串输出
-func (r Response) text() string {
+func (r Response) Text() string {
 	body, _ := r.Bytes()
 
 	return string(body)
