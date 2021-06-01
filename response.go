@@ -5,7 +5,6 @@ import (
 	"errors"
 	"io"
 	"net/http"
-	"strings"
 )
 
 // Response 包装 http.Response
@@ -39,13 +38,6 @@ func (r Response) Text() string {
 
 // ToJSON 以 JSON 的方式解析响应 接受一个 *map 和 *struct
 func (r Response) ToJSON(ptr interface{}) error {
-	contentType := r.Header.Get(ContentType)
-
-	// 不进行转化
-	if !strings.Contains(contentType, "json") && !strings.Contains(contentType, "javascript") && !strings.Contains(contentType, "xml") { // json jsonp xml -> application/json application/javascript text/xml application/xml
-		return errors.New("cannot be converted to json")
-	}
-
 	body, err := r.Bytes()
 	if err != nil {
 		return err
