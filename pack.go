@@ -1,12 +1,18 @@
 package httpc
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
 
 // DefaultClient 默认客户端
 var DefaultClient = New()
+
+// UseDNS 使用指定 dns 解析域名
+func UseDNS(dns ...string) *Client {
+	return DefaultClient.UseDNS(dns...)
+}
 
 // SetProxy 设置代理（支持 http 以及 socks5 代理）
 func SetProxy(proxy string) *Client {
@@ -78,9 +84,9 @@ func Do(req *http.Request) (*Response, error) {
 	return DefaultClient.Do(req)
 }
 
-// Call 使用指定 http 方法访问 url
-func Call(method string, url string) (*Response, error) {
-	return DefaultClient.Call(method, url)
+// CallWithContext 使用指定 http 方法访问 url
+func CallWithContext(ctx context.Context, method string, url string) (*Response, error) {
+	return DefaultClient.CallWithContext(ctx, method, url)
 }
 
 // Options 获取目的资源所支持的通信选项
@@ -88,32 +94,67 @@ func Options(url string) (*Response, error) {
 	return DefaultClient.Options(url)
 }
 
+// OptionsWithContext 获取目的资源所支持的通信选项（可取消）
+func OptionsWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.OptionsWithContext(ctx, url)
+}
+
 // Head 获取响应头
 func Head(url string) (*Response, error) {
 	return DefaultClient.Head(url)
 }
 
-// Get 发送 GET 请求（获取数据）
+//  HeadWithContext 获取响应头（可取消）
+func HeadWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.HeadWithContext(ctx, url)
+}
+
+// Get 发送 GET 请求
 func Get(url string) (*Response, error) {
 	return DefaultClient.Get(url)
 }
 
-// Post 发送 POST 请求（添加数据）
+// GetWithContext 发送 GET 请求（可取消）
+func GetWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.GetWithContext(ctx, url)
+}
+
+// Post 发送 POST 请求
 func Post(url string) (*Response, error) {
 	return DefaultClient.Post(url)
 }
 
-// Put 发送 PUT 请求（覆盖更新）
+// PostWithContext 发送 POST 请求（可取消）
+func PostWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.PostWithContext(ctx, url)
+}
+
+// Put 发送 PUT 请求
 func Put(url string) (*Response, error) {
 	return DefaultClient.Put(url)
 }
 
-// Patch 发送 PATCH 请求（部分更新）
+// PutWithContext 发送 PUT 请求（可取消）
+func PutWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.PutWithContext(ctx, url)
+}
+
+// Patch 发送 PATCH 请求）
 func Patch(url string) (*Response, error) {
 	return DefaultClient.Patch(url)
 }
 
-// Delete 发送 DELETE 请求（删除资源）
+// PatchWithContext 发送 PATCH 请求（可取消）
+func PatchWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.PatchWithContext(ctx, url)
+}
+
+// Delete 发送 DELETE 请求
 func Delete(url string) (*Response, error) {
 	return DefaultClient.Delete(url)
+}
+
+// DeleteWithContext 发送 DELETE 请求（可取消）
+func DeleteWithContext(ctx context.Context, url string) (*Response, error) {
+	return DefaultClient.DeleteWithContext(ctx, url)
 }

@@ -14,22 +14,22 @@ func TestOneWayCall(t *testing.T) { // 单向测试（所有变量的作用域�
 	client.SetBaseURL("https://example.com")
 
 	if client.BaseURL != "" {
-		t.Error("BaseURL 设置泄露")
+		t.Error("BaseURL 设置向 this 泄露")
 	}
 
 	client.SetURLQuery("name", "niconiconi")
 	if client.URLQuery != nil {
-		t.Error("URLQuery 设置泄露")
+		t.Error("URLQuery 设置向 this 泄露")
 	}
 
-	client.SetHeader(ContentType, MIMEJson)
+	client.SetHeader(HeaderContentType, MIMEApplicationJSON)
 	if client.Headers != nil {
-		t.Error("Header 设置泄露")
+		t.Error("Header 设置向 this 泄露")
 	}
 
 	client.SetBody("niconiconi")
 	if client.Body != nil {
-		t.Error("Body 设置泄露")
+		t.Error("Body 设置向 this 泄露")
 	}
 }
 
@@ -75,7 +75,7 @@ func TestURLQuery(t *testing.T) {
 }
 
 func TestSetHeader(t *testing.T) {
-	if SetContentType(MIMEJson).Headers[ContentType] != MIMEJson {
+	if SetContentType(MIMEApplicationJSON).Headers[HeaderContentType] != MIMEApplicationJSON {
 		t.Error("设置 Content-Type 失败")
 	}
 }

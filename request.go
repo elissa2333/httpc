@@ -1,14 +1,15 @@
 package httpc
 
 import (
+	"context"
 	"io"
 	"net/http"
 	"os"
 )
 
-// NewRequest 新建请求
-func NewRequest(method string, url string, headers map[string]string, body io.Reader) (*http.Request, error) { // 带认证的 考虑一下怎么处理
-	req, err := http.NewRequest(method, url, body)
+// NewRequestWithContext 新建请求
+func NewRequestWithContext(ctx context.Context, method string, url string, headers map[string]string, body io.Reader) (*http.Request, error) { // 带认证的 考虑一下怎么处理
+	req, err := http.NewRequestWithContext(ctx, method, url, body)
 	if err != nil {
 		return nil, err
 	}
